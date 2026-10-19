@@ -1,0 +1,137 @@
+{
+  "api_base_url": {
+    "description": "JX3API 基础地址",
+    "type": "string",
+    "default": "https://www.jx3api.com"
+  },
+  "news_records_path": {
+    "description": "公告列表接口路径",
+    "type": "string",
+    "default": "/news/records"
+  },
+  "api_token": {
+    "description": "JX3API Token",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "可选。在 JX3API 申请的访问令牌。"
+  },
+
+  "initial_fetch_limit": {
+    "description": "首次安装抓取条数",
+    "type": "int",
+    "default": 50,
+    "hint": "数据库为空时（首次安装）一次性抓取的公告条数，用于建立初始知识库。"
+  },
+  "daily_fetch_limit": {
+    "description": "每日抓取条数",
+    "type": "int",
+    "default": 10,
+    "hint": "每天定时抓取的公告条数。"
+  },
+  "daily_fetch_time": {
+    "description": "每日抓取时间",
+    "type": "string",
+    "default": "00:00",
+    "hint": "24 小时制 HH:MM 格式，按下方时区计算。"
+  },
+  "catchup_fetch_limit": {
+    "description": "停机补抓条数",
+    "type": "int",
+    "default": 50,
+    "hint": "停机超过 36 小时后恢复时，自动改用该条数补抓。"
+  },
+  "timezone": {
+    "description": "时区",
+    "type": "string",
+    "default": "Asia/Shanghai",
+    "hint": "用于计算每日抓取时间和提醒时间。"
+  },
+
+  "whitelist_groups": {
+    "description": "群白名单，问答与提醒共用",
+    "type": "list",
+    "default": [],
+    "hint": "填写群号，或完整会话地址：平台ID:GroupMessage:群号。留空表示所有群可用。完整会话地址同时作为到期提醒的发送目标；纯群号仅用于问答过滤。"
+  },
+  "whitelist_users": {
+    "description": "私聊白名单，问答与提醒共用",
+    "type": "list",
+    "default": [],
+    "hint": "填写用户号，或完整会话地址：平台ID:FriendMessage:用户号。留空表示所有私聊可用。完整会话地址同时作为到期提醒的发送目标；纯用户号仅用于问答过滤。"
+  },
+  "allow_group": {
+    "description": "群聊问答开关",
+    "type": "bool",
+    "default": true,
+    "invisible": true
+  },
+  "allow_private": {
+    "description": "私聊问答开关",
+    "type": "bool",
+    "default": true,
+    "invisible": true
+  },
+
+  "llm_provider_id": {
+    "description": "问答与活动抽取的 LLM 提供商",
+    "type": "string",
+    "default": "",
+    "_special": "select_provider",
+    "hint": "留空时使用 AstrBot 默认提供商，模型使用该提供商的默认模型。"
+  },
+  "embedding_provider_id": {
+    "description": "向量召回的 Embedding 提供商",
+    "type": "string",
+    "default": "",
+    "hint": "填写提供商 ID，用于语义相似度召回。留空则只使用全文检索。"
+  },
+  "reranker_provider_id": {
+    "description": "重排序的 Reranker 提供商",
+    "type": "string",
+    "default": "",
+    "hint": "填写提供商 ID，对召回结果做精排。留空则不启用。"
+  },
+
+  "reminder_enabled": {
+    "description": "是否启用活动到期提醒",
+    "type": "bool",
+    "default": true
+  },
+  "reminder_days_before": {
+    "description": "提前几天开始提醒",
+    "type": "int",
+    "default": 1,
+    "hint": "0 到 7。设 3 则在截止前 3 天开始，每天推送一次，天数递减；0 表示仅截止当天提醒。"
+  },
+  "reminder_send_time": {
+    "description": "每日提醒推送时间",
+    "type": "string",
+    "default": "10:00",
+    "hint": "24 小时制 HH:MM 格式，倒计时提醒每天在这个时间推送。"
+  },
+  "reminder_evening_enabled": {
+    "description": "维护日前一晚提醒开关",
+    "type": "bool",
+    "default": true,
+    "hint": "截止时间在周一或周四中午 12 点前的活动，会在前一晚推送最后一条提醒。"
+  },
+  "reminder_evening_time": {
+    "description": "维护日前一晚推送时间",
+    "type": "string",
+    "default": "21:00",
+    "hint": "24 小时制 HH:MM 格式；留空同样关闭该提醒。"
+  },
+  "reminder_urgent_enabled": {
+    "description": "临期加推开关",
+    "type": "bool",
+    "default": true,
+    "hint": "截止前推送一次最后提醒。"
+  },
+  "reminder_urgent_minutes": {
+    "description": "临期加推提前分钟数",
+    "type": "int",
+    "default": 60,
+    "hint": "截止前多少分钟推送，如 60 表示截止前 1 小时；填 0 同样关闭。"
+  }
+}
